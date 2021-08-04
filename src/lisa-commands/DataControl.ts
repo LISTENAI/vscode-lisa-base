@@ -44,10 +44,12 @@ class DataControl {
         build.id = 'build';
         build.name = '编译';
         build.description = this.getLisaDescriptByKeyword('build');
-        build.action = this.getLisaCmdByKeyword('build');
+        
         let buildOptions = this.getLisaOptionsByKeyword('build');
         if(buildOptions){
             build.options = this.getLisaOptionsByKeyword('build');
+        }else{
+            build.action = this.getLisaCmdByKeyword('build');
         }
         commonOptions.push(build);
 
@@ -55,10 +57,12 @@ class DataControl {
         flash.id = 'flash';
         flash.name = '烧录';
         flash.description = this.getLisaDescriptByKeyword('flash');
-        flash.action = this.getLisaCmdByKeyword('flash');
+        
         let flashOptions = this.getLisaOptionsByKeyword('flash');
         if(flashOptions){
             flash.options = this.getLisaOptionsByKeyword('flash');
+        }else{
+            flash.action = this.getLisaCmdByKeyword('flash');
         }
         commonOptions.push(flash);
 
@@ -66,10 +70,12 @@ class DataControl {
         clean.id = 'clean';
         clean.name = 'clean';
         clean.description = this.getLisaDescriptByKeyword('clean');
-        clean.action = this.getLisaCmdByKeyword('clean');
+        
         let cleanOptions = this.getLisaOptionsByKeyword('clean');
         if(cleanOptions){
             clean.options = this.getLisaOptionsByKeyword('clean');
+        }else{
+            clean.action = this.getLisaCmdByKeyword('clean');
         }
         commonOptions.push(clean);
         common.options = commonOptions;
@@ -85,10 +91,12 @@ class DataControl {
         otherTask.id = 'otherTask';
         otherTask.name = '其他任务';
         otherTask.description = this.getLisaDescriptByKeyword('task');
-        otherTask.action = this.getLisaCmdByKeyword('task');
+        
         let otherTaskOptions = this.getLisaOptionsByKeyword('task');
         if(otherTaskOptions){
             otherTask.options = this.getLisaOptionsByKeyword('task');
+        }else{
+            otherTask.action = this.getLisaCmdByKeyword('task');
         }
         extensionOptions.push(otherTask);
         extension.options = extensionOptions;

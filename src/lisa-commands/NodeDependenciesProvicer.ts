@@ -78,35 +78,7 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
                 }else if (key === 'description'){
                     parents.description = value;
                 }else if (key === 'options'){
-                    var childTreeData: Array<TreeDataModel> = [];
-                    value.forEach((json2: [string:any]) => {
-                        var child:TreeDataModel = {};
-                        for(var key2 in json2) {
-                            const value2 = json2[key2];
-                            // const isObj_2 = Object.prototype.toString.call(value2) === '[object Object]';
-                            //遍历对象，k即为key，obj[k]为当前k对应的值
-                            // console.log(`>>>${key_2}:${value_2}(${isObj_2})`);
-                            if (key2 === 'id'){ 
-                                child.id = value2;
-                            }else if (key2 === 'name'){
-                                child.name = value2;
-                            }else if (key2 === 'description'){
-                                child.description = value2;
-                            }else if (key2 === 'action'){
-                                const action2:TreeDataActionModel = {};
-                                for(var key3 in value2) {
-                                    const value3 = value2[key3];
-                                    if (key3 === 'type'){
-                                        action2.type = value3;
-                                    }else if (key3 === 'cmd'){
-                                        action2.cmd = value3;
-                                    }
-                                }
-                                child.action = action2;
-                            }
-                        }
-                        childTreeData.push(child);
-                    });
+                    var childTreeData: Array<TreeDataModel> = this.createItemTreeData(value);
                     parents.options = childTreeData;
                 }else if (key === 'action'){
                     const action:TreeDataActionModel = {};
