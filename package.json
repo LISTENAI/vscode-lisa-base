@@ -16,6 +16,7 @@
 	},
 	"activationEvents": [
 		"onView:lisa.tree",
+		"onCommand:lisa.StatusBar",
 		"onCommand:lisa.command"
 	],
 	"main": "./out/extension.js",
