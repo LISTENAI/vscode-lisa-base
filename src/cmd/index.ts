@@ -4,8 +4,8 @@ import * as fs from 'fs';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-export async function cmd(command: string) {
-  const cwd = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0].uri.fsPath;
+export async function cmd(command: string, cwdpath?:string) {
+  const cwd = cwdpath ? cwdpath :vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0].uri.fsPath;
 
   const env = process.env;
   const envPath = env.Path || env.path || '';
