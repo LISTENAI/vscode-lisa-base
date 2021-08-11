@@ -1,30 +1,30 @@
 
 
 import * as vscode from 'vscode';
-import {checkLogin} from '../utils/index';
+// import {checkLogin} from '../utils/index';
 export function createLisaStatusBar({ subscriptions }: vscode.ExtensionContext) {
     //新建工程
     const createCommandId = 'lisa.createProject';
     //编译
     const buildCommandId = 'lisa.showbuildStatusBar';
     subscriptions.push(vscode.commands.registerCommand(buildCommandId, () => {
-        const hasLogin = checkLogin();
-        if(!hasLogin){
-            return vscode.commands.executeCommand('lisa.showLogin');
-        }
+        // const hasLogin = checkLogin();
+        // if(!hasLogin){
+        //     return vscode.commands.executeCommand('lisa.showLogin');
+        // }
         vscode.commands.executeCommand('lisa.command', `lisa build`);
     }));
     //烧录
     const flashCommandId = 'lisa.showflashStatusBar';
     subscriptions.push(vscode.commands.registerCommand(flashCommandId, () => {
-        const hasLogin = checkLogin();
-        if(!hasLogin){
-            return vscode.commands.executeCommand('lisa.showLogin');
-        }
+        // const hasLogin = checkLogin();
+        // if(!hasLogin){
+        //     return vscode.commands.executeCommand('lisa.showLogin');
+        // }
         vscode.commands.executeCommand('lisa.command', `lisa flash`);
     }));
     const createProjectBarItem = createBarItem(`$(add)`, '创建工程', 300, createCommandId);
-    const buildBarItem = createBarItem(`$(play)`, '编译', 200, buildCommandId);
+    const buildBarItem = createBarItem(`$(check)`, '编译', 200, buildCommandId);
     const flashBarItem = createBarItem(`$(arrow-down)`, '烧录', 100, flashCommandId);
 
     subscriptions.push(buildBarItem);
@@ -38,12 +38,6 @@ export function createLisaStatusBar({ subscriptions }: vscode.ExtensionContext) 
     // subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem));
     // update status bar item once at start
     // updateStatusBarItem();
-}
-
-function updateStatusBarItem(): void {
-    // myStatusBarItem.text = `$(add)`;
-    // myStatusBarItem.tooltip = '创建工程';
-    // myStatusBarItem.show();
 }
 
 function createBarItem(text: string, tooltip: string, position: number, command: string): vscode.StatusBarItem {

@@ -23,15 +23,18 @@ class DataControl {
         console.log(`lisa 工程`);
         let projectsJson:Array<[string: any]> = [];
         let createProject:any = {};
-        createProject.id = 'create';
+        createProject.id = 'createProject';
         createProject.name = '新建工程';
         createProject.description = this.getLisaDescriptByKeyword('create');
-        createProject.action = this.getLisaCmdByKeyword('create');
+        createProject.action ={ 
+            type:'run_command',
+            cmd:'lisa.createProject'
+    };
 
-        let options = this.getLisaOptionsByKeyword('create');
-        if(options){
-            createProject.options = this.getLisaOptionsByKeyword('create');
-        }
+        // let options = this.getLisaOptionsByKeyword('createProject');
+        // if(options){
+        //     createProject.options = this.getLisaOptionsByKeyword('createProject');
+        // }
         projectsJson.push(createProject);
 
         //常规

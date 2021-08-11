@@ -7,22 +7,25 @@ import { DataItem, TreeDataModel, TreeDataActionModel } from './lisa-commands/Da
 import { createLisaStatusBar } from './statusBar';
 import { authentication } from './authentication';
 import { createProject } from './createProject';
+import { checkLogin } from './utils/index';
+
 import { cmd } from './cmd';
+// this method is called when your extension is activated
+// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+
 	var mdTml: vscode.Terminal | undefined;
+	// Use the console to output diagnostic information (console.log) and errors (console.error)
+	// This line of code will only be executed once when your extension is activated
+	
 	//authentication
 	authentication();
-	//statusbar
-	createLisaStatusBar(context);
-	//创建项目
-	createProject();
-	
+
 	let treeProvicer: NodeDependenciesProvider = new NodeDependenciesProvider();
 	vscode.window.registerTreeDataProvider("lisa.tree", treeProvicer);
 	treeProvicer.reloadData();
 
 	var isRefresh: Boolean = false;
-
 	let refreshCommands = vscode.commands.registerCommand('lisa.refreshEntry', () => {
 		if (isRefresh) {
 			return;
@@ -51,8 +54,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let treeNodeClick = vscode.commands.registerCommand('lisa.tree.onClick', (id, name, action, options) => {
 		const actionModel: TreeDataActionModel = action;
+		console.log(`node的节点ID：${id} [${actionModel.cmd}] [${options}] ${action.type}`);
+
 		// const optionsModel:TreeDataModel = options;
-		console.log(`node的节点ID：${id} [${actionModel.cmd}] [${options}] `);
+		if(action.type === 'run_command'){
+			return	actionModel.cmd &&	vscode.commands.executeCommand(actionModel.cmd);
+		}
 		// if (optionsModel !== undefined || optionsModel !== null){
 		// 	return;
 		// }
@@ -62,7 +69,6 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let showConsole = vscode.commands.registerCommand('lisa.command', async (command, background?: boolean) => {
-		
 		console.log(`执行命令：${command}, background: ${background}`);
 		if (background) {
 			const res = await cmd(command);
@@ -80,8 +86,10 @@ export function activate(context: vscode.ExtensionContext) {
 	// context.subscriptions.push(disposable);
 
 	
-
-
+	//
+	createProject();
+	//statusbar
+	createLisaStatusBar(context);
 
 }
 

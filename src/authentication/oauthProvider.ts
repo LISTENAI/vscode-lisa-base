@@ -30,11 +30,18 @@ export class OauthProvider {
 		if (!this._statusBarItem) {
 			this._statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 			this._statusBarItem.text = text;
-			this._statusBarItem.command = 'lisa.login';
+			if(text === '请登录'){
+				this._statusBarItem.command = 'lisa.login';
+			}
 			this._statusBarItem.show();
+		}else{
+			this._statusBarItem.text = text;
+			if(text === '请登录'){
+				this._statusBarItem.command = 'lisa.login';
+			}
 		}
 		if (!this._statusBarItem) {
-			this._statusBarItem.dispose();
+			// this._statusBarItem.dispose();
 			this._statusBarItem = undefined;
 		}
 	}
@@ -45,7 +52,10 @@ export class OauthProvider {
 			if (sessions && (sessions.expire || 0) > new Date().getTime()) {
 				this._sessions = sessions;
 				this.hasLogin();
-			} 
+			} else{
+				this.updateStatusBarItem("请登录");
+			}
+
 		}
 		catch (e) {
 			// Ignore, network request failed
@@ -82,8 +92,8 @@ export class OauthProvider {
 			self.timeid = setInterval(function () {
 				i = i + 1;
 				console.log(i);
-				if (i > 100) {
-					console.log('查了100次还没结果');
+				if (i > 60*5) {
+					console.log('查了5分钟还没结果，超时啦');
 					self.timeid && clearInterval(self.timeid);
 					self.timeid = undefined;
 					reject(false);
@@ -107,6 +117,8 @@ export class OauthProvider {
 
 	private async hasLogin() {
 		if (this._sessions.accountName) {
+		console.log('已经登陆',this._sessions.accountName);
+
 			this.updateStatusBarItem(this._sessions.accountName);
 		}
 	}

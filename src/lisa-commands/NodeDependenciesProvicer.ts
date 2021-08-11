@@ -101,6 +101,7 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
     createTreeData(treeData:Array<TreeDataModel>){
         var mData: Array<DataItem> = [];
         //组装
+    
         treeData.forEach((model:TreeDataModel) => {
             const optionsLength = model.options?.length ? model.options?.length : 0;
             //icon
@@ -140,6 +141,8 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
                 mData.push(new DataItem(model));
             }
         });
+        console.log(mData);
+        
         return mData;
     }
 }
