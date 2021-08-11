@@ -1,7 +1,5 @@
 import { TreeItem, TreeItemCollapsibleState, Uri } from "vscode";
-import * as vscode from 'vscode';
 import * as path from 'path';
-import { title } from "node:process";
 
 // 创建每一项 label 对应的图片名称
 // 其实就是一个Map集合，用 ts 的写法

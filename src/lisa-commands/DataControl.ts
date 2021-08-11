@@ -1,7 +1,5 @@
 import * as vscode from 'vscode';
 import * as Configstore from 'configstore';
-import { SSL_OP_LEGACY_SERVER_CONNECT } from 'node:constants';
-import { create } from 'node:domain';
 const config = new Configstore('lisa');
 // import * as fs from 'fs';
 // import * as path from 'path';

@@ -15,7 +15,7 @@
 		"url": "https://git.iflyos.cn/ListenAI/vscode-extensions/lisa.git"
 	},
 	"activationEvents": [
-        "onStartupFinished",
+		"onStartupFinished",
 		"onView:lisa.tree",
 		"onCommand:lisa.command"
 	],
