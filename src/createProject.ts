@@ -19,8 +19,6 @@ export function createProject() {
                 }).then(function (msg) {
                     console.log(msg);
                     if (msg && msg[0]) {
-                        // const uri = vscode.Uri.parse(`${msg[0].scheme}://${msg[0].path}`);
-                        console.log(msg[0].fsPath);
                         vscode.commands.executeCommand('lisa.command', `cd ${msg[0].fsPath} | lisa create`);
                     }
                 });

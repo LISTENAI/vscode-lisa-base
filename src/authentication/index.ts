@@ -24,7 +24,6 @@ export async function authentication() {
     vscode.commands.registerCommand("lisa.login", async function () {
         console.log('进来登录');
         await loginService.login();
-       
     });
 }
 

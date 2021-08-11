@@ -23,9 +23,9 @@ export function createLisaStatusBar({ subscriptions }: vscode.ExtensionContext) 
         }
         vscode.commands.executeCommand('lisa.command', `lisa flash`);
     }));
-    const createProjectBarItem = createBarItem(`$(file-directory-create)`, '创建工程', 300, createCommandId);
-    const buildBarItem = createBarItem(`$(hubot)`, '编译', 200, buildCommandId);
-    const flashBarItem = createBarItem(`$(play)`, '烧录', 100, flashCommandId);
+    const createProjectBarItem = createBarItem(`$(add)`, '创建工程', 300, createCommandId);
+    const buildBarItem = createBarItem(`$(play)`, '编译', 200, buildCommandId);
+    const flashBarItem = createBarItem(`$(arrow-down)`, '烧录', 100, flashCommandId);
 
     subscriptions.push(buildBarItem);
     subscriptions.push(createProjectBarItem);

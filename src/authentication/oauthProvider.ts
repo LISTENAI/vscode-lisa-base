@@ -44,6 +44,7 @@ export class OauthProvider {
 			console.log('ininin->', sessions);
 			if (sessions && (sessions.expire || 0) > new Date().getTime()) {
 				this._sessions = sessions;
+				this.hasLogin();
 			} 
 		}
 		catch (e) {
@@ -81,8 +82,8 @@ export class OauthProvider {
 			self.timeid = setInterval(function () {
 				i = i + 1;
 				console.log(i);
-				if (i > 5) {
-					console.log('查了20茨还没结果');
+				if (i > 100) {
+					console.log('查了100次还没结果');
 					self.timeid && clearInterval(self.timeid);
 					self.timeid = undefined;
 					reject(false);
@@ -90,6 +91,8 @@ export class OauthProvider {
 				const sessions: SessionData = self.readSessions();
 				if (sessions && (sessions.expire || 0) > new Date().getTime()) {
 					self._sessions = sessions;
+					self.timeid && clearInterval(self.timeid);
+					self.timeid = undefined;
 					resolve(true);
 				}
 			},1000);
