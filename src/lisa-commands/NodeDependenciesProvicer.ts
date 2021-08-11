@@ -8,9 +8,9 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
     private _onDidChangeTreeData: vscode.EventEmitter<DataItem | undefined | null | void> = new vscode.EventEmitter<DataItem | undefined | null | void>();
     readonly onDidChangeTreeData: vscode.Event<DataItem | undefined | null | void> = this._onDidChangeTreeData.event;
 
-    refresh(): Promise<void> {
+    refresh() {
         DataControl.getInstance().getLisaCommands();
-        return DataControl.getInstance().getLisaCommands();
+        return DataControl.getInstance().getLisaProjects();
     }
 
     reloadData(): void{
@@ -31,8 +31,8 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
     data: DataItem[] | undefined;
 
     constructor() {
-        DataControl.getInstance().getLisaProjects();
         DataControl.getInstance().getLisaCommands();
+        DataControl.getInstance().getLisaProjects();
     }
 
     loadData():void{
@@ -42,67 +42,9 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
 
         var treeData: Array<TreeDataModel> = [];
 
-        var projectsData: Array<TreeDataModel> = [];
-        var commandsData: Array<TreeDataModel> = [];
-        projectsDatasource.forEach((json: [string:any]) => {
-            var parents:TreeDataModel = {};
-            for(var key in json) {
-                const value = json[key];
-                const isObj = Object.prototype.toString.call(value) === '[object Object]';
-                //遍历对象，k即为key，obj[k]为当前k对应的值
-                // console.log(`>${key}:${value}(${isObj})`);
-                if (key === 'id'){ 
-                    parents.id = value;
-                }else if (key === 'name'){
-                    parents.name = value;
-                }else if (key === 'description'){
-                    parents.description = value;
-                }else if (key === 'options'){
-                    var childTreeData: Array<TreeDataModel> = [];
-                    value.forEach((json2: [string:any]) => {
-                        var child:TreeDataModel = {};
-                        for(var key2 in json2) {
-                            const value2 = json2[key2];
-                            // const isObj_2 = Object.prototype.toString.call(value2) === '[object Object]';
-                            //遍历对象，k即为key，obj[k]为当前k对应的值
-                            // console.log(`>>>${key_2}:${value_2}(${isObj_2})`);
-                            if (key2 === 'id'){ 
-                                child.id = value2;
-                            }else if (key2 === 'name'){
-                                child.name = value2;
-                            }else if (key2 === 'description'){
-                                child.description = value2;
-                            }else if (key2 === 'action'){
-                                const action2:TreeDataActionModel = {};
-                                for(var key3 in value2) {
-                                    const value3 = value2[key3];
-                                    if (key3 === 'type'){
-                                        action2.type = value3;
-                                    }else if (key3 === 'cmd'){
-                                        action2.cmd = value3;
-                                    }
-                                }
-                                child.action = action2;
-                            }
-                        }
-                        childTreeData.push(child);
-                    });
-                    parents.options = childTreeData;
-                }else if (key === 'action'){
-                    const action:TreeDataActionModel = {};
-                    for(var key2 in value) {
-                        const value3 = value[key2];
-                        if (key2 === 'type'){
-                            action.type = value3;
-                        }else if (key2 === 'cmd'){
-                            action.cmd = value3;
-                        }
-                    }
-                    parents.action = action;      
-                }
-            }
-            projectsData.push(parents);
-        });
+        var projectsData: Array<TreeDataModel> = this.createItemTreeData(projectsDatasource);
+        var commandsData: Array<TreeDataModel> = this.createItemTreeData(datasource);
+        
         var projectTreeDataModel:TreeDataModel = {};
         projectTreeDataModel.id = 'project';
         projectTreeDataModel.name = '工程';
@@ -110,6 +52,18 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
         projectTreeDataModel.options = projectsData;
         treeData.push(projectTreeDataModel);
 
+        var commandsDataModel:TreeDataModel = {};
+        commandsDataModel.id = 'lisaCommands';
+        commandsDataModel.name = 'lisa快捷菜单';
+        commandsDataModel.description = 'lisa快捷菜单';
+        commandsDataModel.options = commandsData;
+        treeData.push(commandsDataModel);
+       
+        this.data = this.createTreeData(treeData);
+    }
+
+    createItemTreeData(datasource:Array<[string:any]>){
+        var itemTreeData: Array<TreeDataModel> = [];
         datasource.forEach((json: [string:any]) => {
             var parents:TreeDataModel = {};
             for(var key in json) {
@@ -124,35 +78,7 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
                 }else if (key === 'description'){
                     parents.description = value;
                 }else if (key === 'options'){
-                    var childTreeData: Array<TreeDataModel> = [];
-                    value.forEach((json2: [string:any]) => {
-                        var child:TreeDataModel = {};
-                        for(var key2 in json2) {
-                            const value2 = json2[key2];
-                            // const isObj_2 = Object.prototype.toString.call(value2) === '[object Object]';
-                            //遍历对象，k即为key，obj[k]为当前k对应的值
-                            // console.log(`>>>${key_2}:${value_2}(${isObj_2})`);
-                            if (key2 === 'id'){ 
-                                child.id = value2;
-                            }else if (key2 === 'name'){
-                                child.name = value2;
-                            }else if (key2 === 'description'){
-                                child.description = value2;
-                            }else if (key2 === 'action'){
-                                const action2:TreeDataActionModel = {};
-                                for(var key3 in value2) {
-                                    const value3 = value2[key3];
-                                    if (key3 === 'type'){
-                                        action2.type = value3;
-                                    }else if (key3 === 'cmd'){
-                                        action2.cmd = value3;
-                                    }
-                                }
-                                child.action = action2;
-                            }
-                        }
-                        childTreeData.push(child);
-                    });
+                    var childTreeData: Array<TreeDataModel> = this.createItemTreeData(value);
                     parents.options = childTreeData;
                 }else if (key === 'action'){
                     const action:TreeDataActionModel = {};
@@ -167,16 +93,9 @@ export default class NodeDependenciesProvider implements vscode.TreeDataProvider
                     parents.action = action;      
                 }
             }
-            commandsData.push(parents);
+            itemTreeData.push(parents);
         });
-        var commandsDataModel:TreeDataModel = {};
-        commandsDataModel.id = 'lisaCommands';
-        commandsDataModel.name = 'lisa快捷菜单';
-        commandsDataModel.description = 'lisa快捷菜单';
-        commandsDataModel.options = commandsData;
-        treeData.push(commandsDataModel);
-       
-        this.data = this.createTreeData(treeData);
+        return itemTreeData;
     }
 
     createTreeData(treeData:Array<TreeDataModel>){

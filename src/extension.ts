@@ -7,24 +7,22 @@ import { DataItem, TreeDataModel, TreeDataActionModel } from './lisa-commands/Da
 import { createLisaStatusBar } from './statusBar';
 import { authentication } from './authentication';
 import { createProject } from './createProject';
-
 import { cmd } from './cmd';
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
 	var mdTml: vscode.Terminal | undefined;
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	
 	//authentication
 	authentication();
-
+	//statusbar
+	createLisaStatusBar(context);
+	//创建项目
+	createProject();
+	
 	let treeProvicer: NodeDependenciesProvider = new NodeDependenciesProvider();
 	vscode.window.registerTreeDataProvider("lisa.tree", treeProvicer);
 	treeProvicer.reloadData();
 
 	var isRefresh: Boolean = false;
+
 	let refreshCommands = vscode.commands.registerCommand('lisa.refreshEntry', () => {
 		if (isRefresh) {
 			return;
@@ -82,10 +80,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// context.subscriptions.push(disposable);
 
 	
-	//
-	createProject();
-	//statusbar
-	createLisaStatusBar(context);
+
+
 
 }
 
