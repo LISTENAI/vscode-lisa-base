@@ -72,7 +72,7 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log(`执行命令：${command}, background: ${background}`);
 		if(command.indexOf('lisa build')!==-1){
 			const hasLogin = checkLogin();
-			if(hasLogin){
+			if(!hasLogin){
 				return vscode.commands.executeCommand('lisa.showLogin');
 			}
 		}
