@@ -67,18 +67,7 @@ class DataControl {
         }
         commonOptions.push(flash);
 
-        let clean:any = {};
-        clean.id = 'clean';
-        clean.name = 'clean';
-        clean.description = this.getLisaDescriptByKeyword('clean');
-        
-        let cleanOptions = this.getLisaOptionsByKeyword('clean');
-        if(cleanOptions){
-            clean.options = this.getLisaOptionsByKeyword('clean');
-        }else{
-            clean.action = this.getLisaCmdByKeyword('clean');
-        }
-        commonOptions.push(clean);
+   
         common.options = commonOptions;
         projectsJson.push(common);
 

@@ -70,6 +70,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let showConsole = vscode.commands.registerCommand('lisa.command', async (command, background?: boolean) => {
 		console.log(`执行命令：${command}, background: ${background}`);
+		if(command.indexOf('lisa build')!==-1){
+			const hasLogin = checkLogin();
+			if(hasLogin){
+				return vscode.commands.executeCommand('lisa.showLogin');
+			}
+		}
 		if (background) {
 			const res = await cmd(command);
 			return res;
