@@ -1,8 +1,8 @@
 {
 	"name": "lisa-base",
-	"displayName": "LISTENAI官方发布的IDE基础插件。",
-	"description": "lisa-base",
-	"version": "0.0.8",
+	"displayName": "lisa-base",
+	"description": "LISTENAI官方发布的IDE基础插件。",
+	"version": "0.0.9",
 	"publisher": "listenai",
 	"icon": "lisa.png",
 	"engines": {
