@@ -1,9 +1,10 @@
 {
-	"name": "lisa",
-	"displayName": "lisa 工程快捷菜单",
-	"description": "Lisa",
+	"name": "lisa-base",
+	"displayName": "LISTENAI官方发布的IDE基础插件。",
+	"description": "lisa-base",
 	"version": "0.0.8",
 	"publisher": "listenai",
+	"icon": "lisa.png",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
