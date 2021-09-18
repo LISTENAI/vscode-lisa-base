@@ -18,7 +18,8 @@
 	"activationEvents": [
 		"onStartupFinished",
 		"onView:lisa.tree",
-		"onCommand:lisa.command"
+		"onCommand:lisa.command",
+		"onCommand:lisa.base.check"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -34,6 +35,10 @@
 			{
 				"command": "lisa.command",
 				"title": "lisa命令执行"
+			},
+			{
+				"command": "lisa.base.check",
+				"title": "lisa-base检查"
 			}
 		],
 		"viewsContainers": {

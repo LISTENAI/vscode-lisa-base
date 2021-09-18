@@ -68,6 +68,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
+	let lisaBaseCheck = vscode.commands.registerCommand('lisa.base.check',_ => {
+		console.log(`检查lisa-base是否存在`);
+		return "lisa-base installed";
+	});
+
 	let showConsole = vscode.commands.registerCommand('lisa.command', async (command, background?: boolean) => {
 		console.log(`执行命令：${command}, background: ${background}`);
 		if(command.indexOf('lisa build')!==-1){
