@@ -81,9 +81,12 @@ export class OauthProvider {
 			vscode.window.showInformationMessage("登录失败");
 			this.updateStatusBarItem("请登录");
 		}
+	}
 
-
-
+	async logout() {
+		this._sessions =  {} as SessionData;
+		config.set('userInfo', null);
+		this.updateStatusBarItem("请登录");
 	}
 	private async getUserInfo() {
 		const self = this;
@@ -117,9 +120,8 @@ export class OauthProvider {
 
 	private async hasLogin() {
 		if (this._sessions.accountName) {
-		console.log('已经登陆',this._sessions.accountName);
-			vscode.commands.executeCommand("csk.refreshLogin");
 			this.updateStatusBarItem(this._sessions.accountName);
+			vscode.commands.executeCommand("csk.loginHandle");
 		}
 	}
 

@@ -13,17 +13,23 @@ export async function authentication() {
     console.log(loginService.sessions);
     if (!loginService.sessions.accessToken) {
         vscode.commands.executeCommand('lisa.showLogin');
+        vscode.commands.executeCommand("csk.loginHandle");
+
     }
     vscode.commands.registerCommand("lisa.showLogin", async function () {
         vscode.window.showInformationMessage('登录态已过期，请重新登录', '去登录').then(value => {
             if (value === '去登录') {
-              vscode.commands.executeCommand('lisa.login');
+                vscode.commands.executeCommand('lisa.login');
             }
-          });
+        });
     });
     vscode.commands.registerCommand("lisa.login", async function () {
         console.log('进来登录');
         await loginService.login();
+    });
+
+    vscode.commands.registerCommand("lisa.logout", async function () {
+        await loginService.logout();
     });
 }
 
