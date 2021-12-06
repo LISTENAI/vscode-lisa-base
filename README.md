@@ -21,18 +21,22 @@ lisa-base是LISTENAI官方发布的IDE基础插件。
 #### 安装工具
 
 - Visual Studio Code
-  Visual Studio Code(VSC)是一款广泛使用的IDE工具，请在VSC官网根据操作系统下载适配的版本并安装。
 
-  
+Visual Studio Code(VSC)是一款广泛使用的IDE工具，请在VSC官网根据操作系统下载适配的版本并安装。
+
+
 
  - 安装LISA环境
 
-  LISA是LISTENAI官方提供的包管理服务框架，请参考： [搭建lisa本地环境](https://docs.listenai.com/tools/LISA_LPM/installation)
+LISA是LISTENAI官方提供的包管理服务框架，请参考： [搭建lisa本地环境](https://docs.listenai.com/tools/LISA_LPM/installation)
 
 
 
-- 安装lisa插件
+ - 安装插件
+
 运行Visual Studio Code，在插件市场搜索lisa，点击[安装]对插件进行安装，如图：
+
+
 
 ![clip_image001](https://cdn.iflyos.cn/public/studio_assets/images/clip_image001.png)
 

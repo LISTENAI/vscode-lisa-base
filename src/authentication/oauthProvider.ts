@@ -118,7 +118,7 @@ export class OauthProvider {
 	private async hasLogin() {
 		if (this._sessions.accountName) {
 		console.log('已经登陆',this._sessions.accountName);
-
+			vscode.commands.executeCommand("csk.refreshLogin");
 			this.updateStatusBarItem(this._sessions.accountName);
 		}
 	}

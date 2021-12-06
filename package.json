@@ -2,7 +2,7 @@
 	"name": "lisa-base",
 	"displayName": "lisa-base",
 	"description": "LISTENAI官方发布的IDE基础插件。",
-	"version": "0.0.9",
+	"version": "1.0.0",
 	"publisher": "listenai",
 	"icon": "lisa.png",
 	"engines": {
@@ -87,6 +87,7 @@
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
-		"configstore": "^5.0.1"
+		"configstore": "^5.0.1",
+		"vue-request": "^1.2.0"
 	}
 }
