@@ -32,12 +32,16 @@ export class OauthProvider {
 			this._statusBarItem.text = text;
 			if(text === '请登录'){
 				this._statusBarItem.command = 'lisa.login';
+			}else{
+				this._statusBarItem.command = undefined;
 			}
 			this._statusBarItem.show();
 		}else{
 			this._statusBarItem.text = text;
 			if(text === '请登录'){
 				this._statusBarItem.command = 'lisa.login';
+			}else{
+				this._statusBarItem.command =  undefined;
 			}
 		}
 		if (!this._statusBarItem) {

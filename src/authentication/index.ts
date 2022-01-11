@@ -9,7 +9,7 @@ import { OauthProvider } from './oauthProvider';
 export async function authentication() {
     const loginService = new OauthProvider();
     await loginService.initialize();
-    console.log('你有session吗');
+    console.log('你有session form lisa-base吗');
     console.log(loginService.sessions);
     if (!loginService.sessions.accessToken) {
         vscode.commands.executeCommand('lisa.showLogin');
